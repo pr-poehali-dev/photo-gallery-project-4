@@ -78,7 +78,14 @@ export default function Index() {
       <header className="border-b border-border/40 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-between">
-            <h1 className="font-serif text-4xl font-bold tracking-tight">ATELIER</h1>
+            <div className="flex items-center gap-3">
+              <img 
+                src="https://cdn.poehali.dev/files/ab9e8470-03df-4d0f-848b-560bfd491f0c.jpg" 
+                alt="KropKadr" 
+                className="w-12 h-12 object-cover rounded-full"
+              />
+              <h1 className="font-serif text-3xl font-bold tracking-tight">KropKadr</h1>
+            </div>
             <nav className="flex items-center gap-8">
               <button
                 onClick={() => setActiveSection('gallery')}
@@ -338,7 +345,14 @@ export default function Index() {
       <footer className="border-t border-border/40 mt-32">
         <div className="container mx-auto px-6 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="font-serif text-2xl">ATELIER</p>
+            <div className="flex items-center gap-3">
+              <img 
+                src="https://cdn.poehali.dev/files/ab9e8470-03df-4d0f-848b-560bfd491f0c.jpg" 
+                alt="KropKadr" 
+                className="w-10 h-10 object-cover rounded-full"
+              />
+              <p className="font-serif text-2xl">KropKadr</p>
+            </div>
             <p className="text-sm text-muted-foreground">
               © 2024 Все права защищены
             </p>
