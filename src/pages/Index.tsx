@@ -22,34 +22,81 @@ interface CartItem extends Photo {
 const photos: Photo[] = [
   {
     id: 1,
-    title: "Misty Mountains",
+    title: "Туманные вершины",
     price: 12000,
     image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/beb348c6-055d-46f5-8833-5a86797da529.jpg",
-    description: "Dramatic landscape photography capturing the essence of nature",
-    category: "Landscape"
+    description: "Драматический горный пейзаж в золотом свете",
+    category: "Пейзажи"
   },
   {
     id: 2,
-    title: "Portrait Study",
-    price: 15000,
-    image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/d1f0c78f-f8b6-40ed-ad2b-4edf0d446e42.jpg",
-    description: "Minimalist black and white portrait with dramatic lighting",
-    category: "Portrait"
+    title: "Горизонт",
+    price: 11000,
+    image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/beb348c6-055d-46f5-8833-5a86797da529.jpg",
+    description: "Бескрайние просторы природы",
+    category: "Пейзажи"
   },
   {
     id: 3,
-    title: "Geometric Forms",
+    title: "Городские ритмы",
+    price: 13000,
+    image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/655325e5-cd5b-4862-b985-0cc3c62e53b2.jpg",
+    description: "Уличная фотография в контрастном стиле",
+    category: "Стрит фотография"
+  },
+  {
+    id: 4,
+    title: "Мгновения улиц",
+    price: 12500,
+    image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/655325e5-cd5b-4862-b985-0cc3c62e53b2.jpg",
+    description: "Документальный взгляд на городскую жизнь",
+    category: "Стрит фотография"
+  },
+  {
+    id: 5,
+    title: "Небоскрёбы",
+    price: 14000,
+    image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/f8cb92b6-5ed1-45c6-9283-7a67941b95eb.jpg",
+    description: "Архитектурная панорама мегаполиса",
+    category: "Город"
+  },
+  {
+    id: 6,
+    title: "Геометрия города",
     price: 10000,
     image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/daabbb51-ffdf-48a9-a9a9-79f7662e00f3.jpg",
-    description: "Abstract architectural composition with bold geometry",
-    category: "Architecture"
+    description: "Абстрактные формы городской архитектуры",
+    category: "Город"
+  },
+  {
+    id: 7,
+    title: "Портрет",
+    price: 15000,
+    image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/82f684c2-96a3-4280-b621-592fafc546c3.jpg",
+    description: "Естественная эмоция в мягком свете",
+    category: "Люди"
+  },
+  {
+    id: 8,
+    title: "Контраст",
+    price: 15000,
+    image: "https://cdn.poehali.dev/projects/5035e56f-57e1-4799-9176-6915ec9cbea2/files/d1f0c78f-f8b6-40ed-ad2b-4edf0d446e42.jpg",
+    description: "Минималистичный чёрно-белый портрет",
+    category: "Люди"
   }
 ];
+
+const categories = ['Все', 'Пейзажи', 'Стрит фотография', 'Город', 'Люди'];
 
 export default function Index() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [activeSection, setActiveSection] = useState('gallery');
+  const [selectedCategory, setSelectedCategory] = useState('Все');
+
+  const filteredPhotos = selectedCategory === 'Все' 
+    ? photos 
+    : photos.filter(photo => photo.category === selectedCategory);
 
   const addToCart = (photo: Photo) => {
     setCart(prev => {
@@ -183,7 +230,7 @@ export default function Index() {
       <main className="container mx-auto px-6 py-16">
         {activeSection === 'gallery' && (
           <div className="animate-fade-in">
-            <div className="max-w-3xl mb-20">
+            <div className="max-w-3xl mb-12">
               <h2 className="font-serif text-5xl md:text-6xl font-bold mb-6 leading-tight">
                 Коллекция работ
               </h2>
@@ -193,8 +240,21 @@ export default function Index() {
               </p>
             </div>
 
+            <div className="flex flex-wrap gap-3 mb-12">
+              {categories.map(category => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? 'default' : 'outline'}
+                  onClick={() => setSelectedCategory(category)}
+                  className="font-light"
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-              {photos.map((photo, index) => (
+              {filteredPhotos.map((photo, index) => (
                 <Card
                   key={photo.id}
                   className="group cursor-pointer border-0 shadow-none animate-fade-in overflow-hidden"
